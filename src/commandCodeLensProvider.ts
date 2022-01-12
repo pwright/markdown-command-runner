@@ -34,6 +34,7 @@ export class CommandCodeLensProvider implements vscode.CodeLensProvider {
             if (line.startsWith('```') || line.startsWith('```sh') || line.startsWith('```bash')) {
                 inCommand = true;
                 commandStartLine = i;
+                //terminalName = 'bash1';
                 continue;
             }
         }

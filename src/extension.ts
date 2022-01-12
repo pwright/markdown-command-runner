@@ -6,14 +6,20 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('markdown.run.command', (args) => {
 			var term = vscode.window.activeTerminal || vscode.window.createTerminal();
+			
+			// direct to terminal name			
+			term = vscode.window.createTerminal('Dawn');
+			term.show();
+			term.sendText(args.command);
+			
 			// check if there's a running command in the active terminal, if there is one
 			// create a new term
-			term.processId.then(pid => {
+			/* term.processId.then(pid => {
 				cp.exec('ps -o state= -p ' + pid, (error, stdout, stderr) => {
 					if (error) {
 						// if we can't check just send to the current one...
 						term.show();
-						term.sendText(args.command);
+						//term.sendText(args.command);
 						return;
 					}
 
@@ -22,9 +28,9 @@ export function activate(context: vscode.ExtensionContext) {
 						term = vscode.window.createTerminal();
 					}
 					term.show();
-					term.sendText(args.command);
+					//term.sendText(args.command);
 				});
-			});
+			}); */
 		})
 	);
 
