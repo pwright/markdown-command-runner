@@ -5,13 +5,24 @@ import cp = require('child_process');
 export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('markdown.run.command', (args) => {
-			var term = vscode.window.activeTerminal || vscode.window.createTerminal();
+			var term = vscode.window.activeTerminal || vscode.window.createTerminal() || findTerminal(args.termname);
+
+			// direct to terminal name
+			const oldTerm = findTerminal(args.termname);
+			if (oldTerm) {
+				oldTerm.show();
+				
+			}
+
+			else {
+				term = vscode.window.createTerminal(args.termname);
+				term.show();
+			}
 			
-			// direct to terminal name			
-			term = vscode.window.createTerminal('Dawn');
-			term.show();
+
+			
 			term.sendText(args.command);
-			
+
 			// check if there's a running command in the active terminal, if there is one
 			// create a new term
 			/* term.processId.then(pid => {
@@ -41,3 +52,17 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() { }
+
+
+export function findTerminal(name: string): vscode.Terminal | undefined {
+	try {
+		for (const localTerm of vscode.window.terminals) {
+			if (localTerm.name === name) {
+				return localTerm;
+			}
+		}
+	} catch {
+		return undefined;
+	}
+	return undefined;
+}

@@ -6,7 +6,7 @@ export class CommandCodeLensProvider implements vscode.CodeLensProvider {
     provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken): vscode.ProviderResult<vscode.CodeLens[]> {
         var codeLenses = [];
         const lines = document.getText().split('\n');
-
+        var terminalName = 'bash';
         var inCommand = false;
         var currentCommand = '';
         var commandStartLine = 0;
@@ -15,9 +15,9 @@ export class CommandCodeLensProvider implements vscode.CodeLensProvider {
             if (inCommand) {
                 if (line === '```') {
                     const cmd: vscode.Command = {
-                        title: 'Run command in terminal',
+                        title: 'Run command in Terminal: ' + terminalName,
                         command: 'markdown.run.command',
-                        arguments: [{ command: currentCommand }]
+                        arguments: [{ command: currentCommand, termname: terminalName }]
                     };
                     codeLenses.push(
                         new vscode.CodeLens(new vscode.Range(new vscode.Position(commandStartLine, 0), new vscode.Position(commandStartLine + 1, 0)), cmd)
@@ -31,10 +31,12 @@ export class CommandCodeLensProvider implements vscode.CodeLensProvider {
                 continue;
             }
 
-            if (line.startsWith('```') || line.startsWith('```sh') || line.startsWith('```bash')) {
+            if (line.startsWith('```')) {
                 inCommand = true;
                 commandStartLine = i;
-                //terminalName = 'bash1';
+                terminalName = line.substr(3, line.length -3) + '';
+                //substring-after(haystack ,needle )
+                //console.log(terminalName);
                 continue;
             }
         }
