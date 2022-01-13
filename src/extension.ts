@@ -46,7 +46,7 @@ export function activate(context: vscode.ExtensionContext) {
 	);
 
 	context.subscriptions.push(
-		vscode.languages.registerCodeLensProvider({ language: 'markdown', scheme: 'file' },
+		vscode.languages.registerCodeLensProvider({  pattern: '**/*.{md,adoc}'  },
 			new CommandCodeLensProvider())
 	);
 }
