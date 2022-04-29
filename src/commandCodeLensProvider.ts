@@ -7,13 +7,14 @@ export class CommandCodeLensProvider implements vscode.CodeLensProvider {
         var codeLenses = [];
         const lines = document.getText().split('\n');
         var terminalName = 'bash';
+        var result = '';
         var inCommand = false;
         var currentCommand = '';
         var commandStartLine = 0;
         for (var i = 0; i < lines.length; i++) {
             const line = lines[i].trim();
             if (inCommand) {
-                if (line === '~~~ shell') {
+                if (line.includes('~~~')) {
                     const cmd: vscode.Command = {
                         title: 'Run command in Terminal: ' + terminalName,
                         command: 'markdown.run.command',
@@ -30,10 +31,12 @@ export class CommandCodeLensProvider implements vscode.CodeLensProvider {
                 continue;
             }
 
-            if (line.startsWith('Console for ')) {
+            if (line.includes('Console for ')) {
                 inCommand = true;
                 commandStartLine = i;
-                terminalName = line.substr(12, line.length -3) + '';
+                result = line.trim();
+                result = result.replace(/- /gm,'');
+                terminalName = result.substr(13, result.length-15) + '';
                 //substring-after(haystack ,needle )
                 //console.log(terminalName);
                 continue;

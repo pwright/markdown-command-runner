@@ -2,7 +2,7 @@
 	"name": "markdoc-command-runner",
 	"displayName": "Markdown and AsciiDoc Command Runner",
 	"description": "Easily run commands in markdown and AsciiDoc files",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "pwright",
 	"icon": "images/icon.png",
 	"repository": {
