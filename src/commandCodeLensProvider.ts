@@ -14,7 +14,7 @@ export class CommandCodeLensProvider implements vscode.CodeLensProvider {
         for (var i = 0; i < lines.length; i++) {
             const line = lines[i].trim();
             if (inCommand) {
-                if (line.includes('~~~')) {
+                if ((line.trim())=='~~~') {
                     const cmd: vscode.Command = {
                         title: 'Run command in Terminal: ' + terminalName,
                         command: 'markdown.run.command',
@@ -27,7 +27,7 @@ export class CommandCodeLensProvider implements vscode.CodeLensProvider {
                     currentCommand = '';
                     continue;
                 }
-                currentCommand +=  lines[i+2].trim() + '\n';
+                currentCommand +=  lines[i+2].trim() + '\n' + lines[i-1].trim() + '\n';
                 continue;
             }
 
