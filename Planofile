@@ -1,0 +1,45 @@
+from plano import *
+import csv
+import os
+import re
+import sys
+import sys;print(sys.version)
+
+regexp_title = re.compile(r'^(=+)\s+(\S.*)')
+regexp_include = re.compile(r'^\s*include::([^\[]+)\[([^\]]*)\]')
+nl='\n'
+
+@command
+def generate(app):
+    """
+    Generate data from arg[1] directory
+    """
+    logseqDir = get_current_dir()
+    dirName=read('settings')
+    dirName=str(dirName)
+    with working_dir(dirName):
+        print(get_current_dir())
+        for path in find("./", "*.adoc"):
+            print(path)
+            adoc = adoc_parse(path, logseqDir)
+
+def adoc_parse(path, logseqDir):
+  
+  pageName=path.replace("/",".").replace(".adoc",".md")
+  page= logseqDir +'/pages/' + pageName
+  write(page, '# ' + pageName +nl)
+  for line in read_lines(path):
+      line = line.rstrip()
+      if (regexp_title.search(line)):
+          heading= regexp_title.search(line).string
+          heading= heading.replace("=", "#")
+          append(page,heading+nl)
+          
+      if (regexp_include.search(line)):
+           include= regexp_include.search(line).string
+           
+           append(page,'## ' +include +nl)
+      else:
+          append(page,' ' + line + nl)
+      
+      
