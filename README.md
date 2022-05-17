@@ -1,10 +1,11 @@
-# markdown-command-runner
+# markdoc-command-runner
 
-`markdown-command-runner` is a lightweight VS Code extension to run commands in READMEs in one-click.
+`markdoc-command-runner` is a lightweight VS Code extension to run commands in READMEs in one-click.
 It adds a CodeLens action to run shell snippets in any markdown file.
 
-This fork of https://github.com/Ackar/markdown-command-runner
-allows you to quickly test readme files generated from 
+NOTE:This fork of https://github.com/Ackar/markdown-command-runner
+
+It allows you to quickly test readme files generated from 
 https://github.com/skupperproject/skewer
 
 ## Installation
@@ -27,7 +28,7 @@ Console for _east_:
 ls
 ~~~
 
+In VSCode this appears as:
 
-
-
+![./images/mcr1.png](images/mcr1.png)
 

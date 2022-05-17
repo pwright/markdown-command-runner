@@ -1,32 +1,12 @@
 = Asciidoc
 
-Markdown syntax:
 
-```west
-npm install -g vsce
-```
-
-cannot run 'normal' adoc commands:
-
-[source,shell,target=west]
+Console for _east_:
+[bash]
 ----
-ls -al
+$ ls
 ----
-
-```east
-code --install-extension markdoc-command-runner-0.0.1.vsix
-
-```
 
 Can use [zvikarp/command-runner](https://github.com/zvikarp/command-runner) to run `ls` in 'Command Runner' terminal
 
 
-```west
-time
-ls
-```
-
-```east
-time
-ls
-```
