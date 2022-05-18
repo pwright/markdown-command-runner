@@ -27,7 +27,7 @@ export class CommandCodeLensProvider implements vscode.CodeLensProvider {
                     currentCommand = '';
                     continue;
                 }
-                currentCommand +=  lines[i+2].trim() + '\n' + lines[i-1].trim() + '\n';
+                currentCommand =   lines[i].trim() + '\n';
                 continue;
             }
 

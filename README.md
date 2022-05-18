@@ -25,7 +25,7 @@ When clicked the associated snippet is run the current active terminal or a new 
 Console for _east_:
 
 ~~~ shell
-ls
+ls -al
 ~~~
 
 In VSCode this appears as:
